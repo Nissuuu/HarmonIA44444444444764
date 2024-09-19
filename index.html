@@ -10,7 +10,7 @@
     <style>
         /* Estils per la imatge de fons */
         body {
-            background-image: url('https://img.freepik.com/vector-gratis/elegante-fondo-blanco-lineas-brillantes_1017-17580.jpg?t=st=1726755460~exp=1726759060~hmac=e260501dccb472fd6e1a60f0cf31321a54e990e4ba1d09af62076a15224381ca&w=1800'); /* Canvia aquest URL per la teva imatge */
+            background-image: url('https://example.com/fons.jpg'); /* Canvia aquest URL per la teva imatge */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -98,10 +98,12 @@
 
     <py-script>
         import random
+        from pyscript import Element
 
         acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
         dades = ["0 5 7", "2 6 9", "4 0 7", "5 9 11"]
 
+        # Funció per generar la progressió
         def generar_progressio(durada, to):
             progressio_traduida = []
             caracters = 0
@@ -110,25 +112,25 @@
                 acords_separats = acord_aleatori.split()
                 if caracters + len(acords_separats) <= durada:
                     for i in acords_separats:
-                        if 'm' in i:
-                            nota = (int(i[:-1]) + to) % 12
-                            progressio_traduida.append(acords[nota] + 'm')
-                        else:
-                            i = int(i)
-                            nota_traduida = acords[(i + to) % 12]
-                            progressio_traduida.append(nota_traduida)
+                        i = int(i)
+                        nota_traduida = acords[(i + to) % 12]
+                        progressio_traduida.append(nota_traduida)
                     caracters += len(acords_separats)
             return progressio_traduida
 
+        # Funció que es crida quan es fa clic al botó
         def on_create_button_click(event):
             durada = int(Element("duration").value)
             tonalitat = Element("tonality").value
             to = list(acords.values()).index(tonalitat)
             progressio = generar_progressio(durada, to)
-            Element("progression").element.innerHTML = f"Progressió: {' '.join(progressio)}"
+            
+            # Mostrar la progressió al paràgraf
+            Element("progression").write(f"Progressió: {' '.join(progressio)}")
 
         # Assignar l'event al botó
         Element("createProgression").element.addEventListener("click", on_create_button_click)
     </py-script>
 </body>
+
 </html>
