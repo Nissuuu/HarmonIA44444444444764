@@ -12,8 +12,6 @@
 <body>
     <b>
         <p>
-            Avui és 
-            <u><label for="" id="avui"></label></u>
         </p>
     </b>
 
@@ -72,7 +70,7 @@
             tonalitat = Element("tonality").value
             to = list(acords.values()).index(tonalitat)
             progressio = generar_progressio(durada, to)
-            Element("progression").write(f"Progressió: {' '.join(progressio)}")
+            Element("progression").element.innerHTML = f"Progressió: {' '.join(progressio)}"
 
         # Assignar l'event al botó
         Element("createProgression").element.addEventListener("click", on_create_button_click)
