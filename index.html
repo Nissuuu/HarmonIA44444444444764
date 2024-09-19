@@ -7,39 +7,94 @@
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <title>HarmonIA</title>
+    <style>
+        /* Estils per la imatge de fons */
+        body {
+            background-image: url('https://example.com/fons.jpg'); /* Canvia aquest URL per la teva imatge */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Contenidor centrat */
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Fons semitransparent per a destacar el contingut */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+        }
+
+        /* Estils pels inputs */
+        select, input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Estils pel botó */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Estils pel text de la progressió */
+        #progression {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
-    <b>
+    <div class="container">
+        <h2>HarmonIA: Genera la teva Progressió</h2>
+
         <p>
+            <label for="tonality">Selecciona la tonalitat: </label>
+            <select id="tonality">
+                <option value="C">C</option>
+                <option value="Db">Db</option>
+                <option value="D">D</option>
+                <option value="Eb">Eb</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="Ab">Ab</option>
+                <option value="A">A</option>
+                <option value="Bb">Bb</option>
+                <option value="B">B</option>
+            </select>
         </p>
-    </b>
 
-    <p>
-        <label for="tonality">Selecciona la tonalitat: </label>
-        <select id="tonality">
-            <option value="C">C</option>
-            <option value="Db">Db</option>
-            <option value="D">D</option>
-            <option value="Eb">Eb</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="F#">F#</option>
-            <option value="G">G</option>
-            <option value="Ab">Ab</option>
-            <option value="A">A</option>
-            <option value="Bb">Bb</option>
-            <option value="B">B</option>
-        </select>
-    </p>
+        <p>
+            <label for="duration">Durada de la progressió (1-8): </label>
+            <input type="number" id="duration" min="1" max="8" value="4">
+        </p>
 
-    <p>
-        <label for="duration">Durada de la progressió: </label>
-        <input type="number" id="duration" min="1" max="8" value="4">
-    </p>
+        <button id="createProgression">Crear Progressió</button>
 
-    <button id="createProgression">Crear Progressió</button>
-    <p id="progression">Progressió: </p>
+        <p id="progression">Progressió: </p>
+    </div>
 
     <py-script>
         import random
@@ -75,6 +130,5 @@
         # Assignar l'event al botó
         Element("createProgression").element.addEventListener("click", on_create_button_click)
     </py-script>
-
 </body>
 </html>
