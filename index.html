@@ -99,7 +99,6 @@
     <py-script>
         import random
         from js import document
-        from pyodide.ffi import create_proxy
 
         acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
         dades = ["0 5 7", "2 6 9", "4 0 7", "5 9 11"]
@@ -141,9 +140,8 @@
                 document.getElementById("progression").innerText = f"Error: {str(e)}"
                 print(f"Error: {str(e)}")
 
-        # Assignar l'event al botó utilitzant create_proxy
-        create_button_click_proxy = create_proxy(on_create_button_click)
-        document.getElementById("createProgression").addEventListener("click", create_button_click_proxy)
+        # Assignar l'event al botó sense usar create_proxy
+        document.getElementById("createProgression").addEventListener("click", on_create_button_click)
     </py-script>
 </body>
 
