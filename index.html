@@ -12,13 +12,71 @@
 <body>
     <b>
         <p>
+            Avui és 
+            <u><label for="" id="avui"></label></u>
         </p>
     </b>
+
+    <p>
+        <label for="tonality">Selecciona la tonalitat: </label>
+        <select id="tonality">
+            <option value="C">C</option>
+            <option value="Db">Db</option>
+            <option value="D">D</option>
+            <option value="Eb">Eb</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="F#">F#</option>
+            <option value="G">G</option>
+            <option value="Ab">Ab</option>
+            <option value="A">A</option>
+            <option value="Bb">Bb</option>
+            <option value="B">B</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="duration">Durada de la progressió: </label>
+        <input type="number" id="duration" min="1" max="8" value="4">
+    </p>
+
+    <button id="createProgression">Crear Progressió</button>
+    <p id="progression">Progressió: </p>
+
     <py-script>
-        for i in range(10):
-            print(i)
+        import random
 
+        acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
+        dades = ["0 5 7", "2 6 9", "4 0 7", "5 9 11"]
+
+        def generar_progressio(durada, to):
+            progressio_traduida = []
+            caracters = 0
+            while caracters < durada:
+                acord_aleatori = random.choice(dades)
+                acords_separats = acord_aleatori.split()
+                if caracters + len(acords_separats) <= durada:
+                    for i in acords_separats:
+                        if 'm' in i:
+                            nota = (int(i[:-1]) + to) % 12
+                            progressio_traduida.append(acords[nota] + 'm')
+                        else:
+                            i = int(i)
+                            nota_traduida = acords[(i + to) % 12]
+                            progressio_traduida.append(nota_traduida)
+                    caracters += len(acords_separats)
+            return progressio_traduida
+
+        def on_create_button_click(event):
+            durada = int(Element("duration").value)
+            tonalitat = Element("tonality").value
+            to = list(acords.values()).index(tonalitat)
+            progressio = generar_progressio(durada, to)
+            Element("progression").write(f"Progressió: {' '.join(progressio)}")
+
+        # Assignar l'event al botó
+        Element("createProgression").element.addEventListener("click", on_create_button_click)
     </py-script>
-</body>
 
+</body>
 </html>
