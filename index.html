@@ -10,7 +10,7 @@
     <style>
         /* Estils per la imatge de fons */
         body {
-            background-image: url('https://img.freepik.com/vector-gratis/elegante-fondo-blanco-lineas-brillantes_1017-17580.jpg?t=st=1726755801~exp=1726759401~hmac=0b16974b27f830bc9c9ce82b54d94c43f5a9fa0115494b8d42c7c18040b763dc&w=1800'); /* Canvia aquest URL per la teva imatge */
+            background-image: url('https://example.com/fons.jpg'); /* Canvia aquest URL per la teva imatge */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -122,14 +122,23 @@
             durada_input = Element("duration").element.value
             tonalitat_input = Element("tonality").element.value
 
+            # Depuració: Mostra la tonalitat i la durada seleccionades
+            print(f"Tonalitat seleccionada: {tonalitat_input}, Durada: {durada_input}")
+
             # Convertir els valors d'entrada
             try:
                 durada = int(durada_input)
                 tonalitat = tonalitat_input
                 to = list(acords.values()).index(tonalitat)
 
+                # Depuració: Mostra la tonalitat traduïda a index
+                print(f"Index de tonalitat (to): {to}")
+
                 # Generar progressió
                 progressio = generar_progressio(durada, to)
+
+                # Depuració: Mostra la progressió generada
+                print(f"Progressió generada: {progressio}")
 
                 # Mostrar la progressió al paràgraf
                 Element("progression").element.innerText = f"Progressió: {' '.join(progressio)}"
@@ -137,6 +146,7 @@
             except Exception as e:
                 # Si hi ha algun error, el mostrarem per debugar
                 Element("progression").element.innerText = f"Error: {str(e)}"
+                print(f"Error: {str(e)}")
 
         # Assignar l'event al botó
         Element("createProgression").element.addEventListener("click", on_create_button_click)
