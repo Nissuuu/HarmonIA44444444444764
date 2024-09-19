@@ -120,13 +120,24 @@
 
         # Funció que es crida quan es fa clic al botó
         def on_create_button_click(event):
-            durada = int(Element("duration").value)
-            tonalitat = Element("tonality").value
-            to = list(acords.values()).index(tonalitat)
-            progressio = generar_progressio(durada, to)
-            
-            # Mostrar la progressió al paràgraf
-            Element("progression").write(f"Progressió: {' '.join(progressio)}")
+            durada_input = Element("duration").value
+            tonalitat_input = Element("tonality").value
+
+            # Convertir els valors d'entrada
+            try:
+                durada = int(durada_input)
+                tonalitat = tonalitat_input
+                to = list(acords.values()).index(tonalitat)
+
+                # Generar progressió
+                progressio = generar_progressio(durada, to)
+
+                # Mostrar la progressió al paràgraf
+                Element("progression").write(f"Progressió: {' '.join(progressio)}")
+
+            except Exception as e:
+                # Si hi ha algun error, el mostrarem per debugar
+                Element("progression").write(f"Error: {str(e)}")
 
         # Assignar l'event al botó
         Element("createProgression").element.addEventListener("click", on_create_button_click)
