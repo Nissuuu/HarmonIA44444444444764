@@ -98,7 +98,6 @@
 
     <py-script>
         import random
-        from pyscript import Element
 
         acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
         dades = ["0 5 7", "2 6 9", "4 0 7", "5 9 11"]
@@ -119,9 +118,9 @@
             return progressio_traduida
 
         # Funció que es crida quan es fa clic al botó
-        def on_create_button_click(event):
-            durada_input = Element("duration").value
-            tonalitat_input = Element("tonality").value
+        def on_create_button_click(*args):
+            durada_input = Element("duration").element.value
+            tonalitat_input = Element("tonality").element.value
 
             # Convertir els valors d'entrada
             try:
@@ -133,11 +132,11 @@
                 progressio = generar_progressio(durada, to)
 
                 # Mostrar la progressió al paràgraf
-                Element("progression").write(f"Progressió: {' '.join(progressio)}")
+                Element("progression").element.innerText = f"Progressió: {' '.join(progressio)}"
 
             except Exception as e:
                 # Si hi ha algun error, el mostrarem per debugar
-                Element("progression").write(f"Error: {str(e)}")
+                Element("progression").element.innerText = f"Error: {str(e)}"
 
         # Assignar l'event al botó
         Element("createProgression").element.addEventListener("click", on_create_button_click)
