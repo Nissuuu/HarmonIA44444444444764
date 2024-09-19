@@ -8,7 +8,6 @@
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <title>HarmonIA</title>
     <style>
-        /* Estils per la imatge de fons */
         body {
             background-image: url('https://example.com/fons.jpg'); /* Canvia aquest URL per la teva imatge */
             background-size: cover;
@@ -21,9 +20,8 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Contenidor centrat */
         .container {
-            background-color: rgba(255, 255, 255, 0.8); /* Fons semitransparent per a destacar el contingut */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -31,7 +29,6 @@
             width: 400px;
         }
 
-        /* Estils pels inputs */
         select, input[type="number"] {
             padding: 10px;
             font-size: 16px;
@@ -42,7 +39,6 @@
             box-sizing: border-box;
         }
 
-        /* Estils pel botó */
         button {
             background-color: #4CAF50;
             color: white;
@@ -54,7 +50,6 @@
             width: 100%;
         }
 
-        /* Estils pel text de la progressió */
         #progression {
             margin-top: 20px;
             font-size: 18px;
@@ -99,12 +94,10 @@
     <py-script>
         import random
         from js import document
-        from pyodide.ffi import create_proxy  # Import create_proxy
 
         acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
         dades = ["0 5 7", "2 6 9", "4 0 7", "5 9 11"]
 
-        # Funció per generar la progressió
         def generar_progressio(durada, to):
             progressio_traduida = []
             caracters = 0
@@ -119,31 +112,25 @@
                     caracters += len(acords_separats)
             return progressio_traduida
 
-        # Funció que es crida quan es fa clic al botó
         def on_create_button_click(event):
             durada_input = document.getElementById("duration").value
             tonalitat_input = document.getElementById("tonality").value
 
-            # Convertir els valors d'entrada
             try:
                 durada = int(durada_input)
                 tonalitat = tonalitat_input
                 to = list(acords.values()).index(tonalitat)
 
-                # Generar progressió
                 progressio = generar_progressio(durada, to)
 
-                # Mostrar la progressió al paràgraf
                 document.getElementById("progression").innerText = f"Progressió: {' '.join(progressio)}"
 
             except Exception as e:
-                # Si hi ha algun error, el mostrarem per debugar
                 document.getElementById("progression").innerText = f"Error: {str(e)}"
                 print(f"Error: {str(e)}")
 
-        # Utilitzem create_proxy per mantenir la referència viva
-        button_proxy = create_proxy(on_create_button_click)
-        document.getElementById("createProgression").addEventListener("click", button_proxy)
+        # Assignem la funció al botó de forma directa
+        document.getElementById("createProgression").addEventListener("click", on_create_button_click)
     </py-script>
 </body>
 
