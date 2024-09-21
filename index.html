@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HarmonIA</title>
     <style>
+        body {
+            background-image: url('fons.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
         #resultat {
             background-color: lightblue;
             padding: 10px;
@@ -113,19 +119,19 @@
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
         
-        let to = ""; // Variable global per guardar el to seleccionat
+        let to = ""; 
 
-        // Afegir esdeveniments a les notes del teclat
+    
         document.querySelectorAll('.nota').forEach(nota => {
             nota.addEventListener('mouseenter', () => {
-                nota.style.backgroundColor = 'lightgray'; // Efecte hover
+                nota.style.backgroundColor = 'lightgray'; 
             });
             nota.addEventListener('mouseleave', () => {
-                nota.style.backgroundColor = ''; // Restableix el color
+                nota.style.backgroundColor = '';
             });
             nota.addEventListener('click', () => {
-                to = parseInt(nota.getAttribute('data-nota')); // Guarda el to seleccionat com a número
-                document.getElementById('to').innerHTML = `To: ${nota.getAttribute('data-nom')}`; // Actualitza el div amb el nom del to
+                to = parseInt(nota.getAttribute('data-nota')); 
+                document.getElementById('to').innerHTML = `To: ${nota.getAttribute('data-nom')}`; 
             });
         });
 
