@@ -29,6 +29,16 @@
             margin: 0 auto;
             background-color: transparent;
         }
+        #durada1 {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+        }
+        #durada {
+            position: absolute;
+            top: 200px;
+            left: 130px;
+        }
         .nota {
             position: absolute;
             border: 1px solid #000;
@@ -145,14 +155,7 @@
 
 <body>
     <div class="titol"><span class="highlight">H</span>armon<span class="highlight">IA</span></div>
-    
-      <use xlink:href="#s-text" class="text"></use>
-      <use xlink:href="#s-text" class="text"></use>
-      <use xlink:href="#s-text" class="text"></use>
-      <use xlink:href="#s-text" class="text"></use>
-      <use xlink:href="#s-text" class="text"></use>
-    </svg>
-    <label for="durada" class="inputs">Acords:</label>
+    <label for="durada" class="inputs" id="durada1">Acords:</label>
     <select id="durada" name="durada" class="selector">
         <option value="1">1</option>
         <option value="2">2</option>
