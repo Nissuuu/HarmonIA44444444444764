@@ -11,13 +11,13 @@
     <!-- Estils per canviar el color de fons del div -->
     <style>
         #resultat {
-            background-color: lightblue; /* Canvia el color de fons */
+            background-color: lightblue;
             padding: 10px;
             border-radius: 5px;
             margin-top: 20px;
             font-weight: bold;
-            color: #333; /* Color del text */
-            min-height: 50px; /* Altura mínima per assegurar visibilitat */
+            color: #333;
+            min-height: 50px;
         }
     </style>
 </head>
@@ -46,6 +46,7 @@
 
     <py-script>
         import random
+        from pyscript import display
 
         # Acords disponibles
         acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
@@ -80,7 +81,7 @@
             durada = int(document.querySelector("#durada").value)  # Obtenim el valor seleccionat del desplegable
             resultat = generar_progressio(durada, dades, 0)  # To fixat a 0
             progressio_text = f"Progressió: {', '.join(resultat)}"
-            document.querySelector("#resultat").innerHTML = progressio_text  # Mostrem la progressió
+            display(progressio_text, target="resultat")  # Utilitzem pyscript.write per escriure el resultat
 
         # Enllaçar el botó amb la funció de mostrar la progressió
         document.querySelector("#generar").addEventListener("click", mostrar_progressio)
