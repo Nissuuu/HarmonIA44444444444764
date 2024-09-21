@@ -102,14 +102,6 @@
             letter-spacing: 1px;
             text-align: left;
         }
-        .progressió {
-            color: #fff;
-            font-size: 1.5em;
-            font-family: Impact;
-            font-weight: 50;
-            letter-spacing: 1px;
-            text-align: left;
-        }
         .titol {
             color: #fff;
             font-size: 5em;
@@ -157,7 +149,13 @@
             left: 770px;
             width: 580px;
             height: 80px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Ombra */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1.5em;
+            font-family: Impact;
+            font-weight: 50;
+            letter-spacing: 1px;
+            text-align: left;
         }
 
     </style>
@@ -224,20 +222,16 @@
                     console.error("No hi ha dades disponibles per generar la progressió.");
                     return [];
                 }
-                // Seleccionar una progressió aleatòria
                 const progressioAleatoria = dades[Math.floor(Math.random() * dades.length)];
                 const acordsSeparats = progressioAleatoria.split(" "); // Separar els acords
 
-                // Afegir els acords a la progressió
                 for (let acord of acordsSeparats) {
-                    // Verificar si l'acord és un número o inclou 'm'
-                    if (/^\d+m?$/.test(acord)) { // Comprovar si és un número o un acord menor
+                    if (/^\d+m?$/.test(acord)) { 
                         progressio.push(acord);
                     }
                 }
             }
 
-            // Convertir la progressió
             return progressio.slice(0, durada).map(i => {
                 const acordNum = parseInt(i);
                 const nota = (acordNum + to) % 12;
