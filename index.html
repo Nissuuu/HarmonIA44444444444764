@@ -78,7 +78,7 @@
         }
         .inputs {
             color: #000000;
-            font-size: 1.5em;
+            font-size: 1.7em;
             font-family: Impact;
             font-weight: 50;
             letter-spacing: 1px;
@@ -134,8 +134,9 @@
             background-color: rgba(128, 128, 128, 0.5); /* Color gris amb 50% de transparència */
             border-radius: 10px; /* Arrodoniment de les vores */
             padding: 30px; /* Espai interior */
-            margin-top: 20px; /* Espai superior */
-            margin-left: 400px;
+            position: absolute;
+            top: 400px;
+            left: 600px;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Ombra */
         }
 
@@ -151,7 +152,7 @@
       <use xlink:href="#s-text" class="text"></use>
       <use xlink:href="#s-text" class="text"></use>
     </svg>
-    <label for="durada" class="inputs">Selecciona quants acords té la progressió:</label>
+    <label for="durada" class="inputs">Acords:</label>
     <select id="durada" name="durada" class="selector">
         <option value="1">1</option>
         <option value="2">2</option>
