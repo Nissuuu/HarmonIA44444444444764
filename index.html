@@ -95,7 +95,7 @@
             const durada = parseInt(document.getElementById('durada').value);
             const to = parseInt(document.getElementById('to').value);
             const resultat = generarProgressio(durada, dades, to);
-            const progressioText = resultat.length ? `${resultat.join(', ')}` : "No es pot generar la progressió.";
+            const progressioText = resultat.length ? `${resultat.join(' ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
         });
     </script>
