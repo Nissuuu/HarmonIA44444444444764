@@ -24,7 +24,6 @@
             margin: 0 auto;
             background-color: transparent;
         }
-
         .nota {
             position: absolute;
             border: 1px solid #000;
@@ -44,40 +43,9 @@
             left: 40px; 
             z-index: 1; 
         }
-
-        button {
-            width: 150px;
-            height: 40px;
-            background: linear-gradient(to left top, #8cccd1 50%, #b8d9dc 50%);
-            border: none;
-            color: #000000;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            font-family: 'Lato';
-            font-weight: 600;
-            outline: none;
-            cursor: pointer;
-            position: relative;
-            padding: 0;
-            overflow: hidden;
-            transition: all .5s;
-            box-shadow: 0px 1px 2px rgba(0,0,0,.2);
-            margin-top: 20px; /* Espai superior */
-        }
-        button span {
-            position: absolute;
-            display: block;
-        }
-        @keyframes span1 {
-            0% { left: -200px; }
-            100% { left: 200px; }
-        }
-        button:hover {
-            transform: rotate(-3deg) scale(1.1);
-            box-shadow: 0px 2px 4px rgba(0,0,0,.3);
-        }
     </style>
 </head>
+
 <body>
     <h1>Generador de Progressió d'Acords</h1>
 
@@ -94,33 +62,29 @@
     </select>
 
     <div id="to">To:</div>
-
-    <button id="generar"><span></span>Crea la progressió!</button>
+    
+    <button id="generar">Generar Progressió</button>
 
     <div id="resultat">Aquí es mostrarà la progressió</div>
 
     <div id="teclat">
-        <div class="nota white" style="left: 0;" data-nota="C"></div>
-        <div class="nota black" style="left: 40px;" data-nota="Db"></div>
-        <div class="nota white" style="left: 55px;" data-nota="D"></div>
-        <div class="nota black" style="left: 95px;" data-nota="Eb"></div>
-        <div class="nota white" style="left: 110px;" data-nota="E"></div>
-        <div class="nota white" style="left: 165px;" data-nota="F"></div>
-        <div class="nota black" style="left: 205px;" data-nota="F#"></div>
-        <div class="nota white" style="left: 220px;" data-nota="G"></div>
-        <div class="nota black" style="left: 260px;" data-nota="Ab"></div>
-        <div class="nota white" style="left: 275px;" data-nota="A"></div>
-        <div class="nota black" style="left: 315px;" data-nota="Bb"></div>
-        <div class="nota white" style="left: 330px;" data-nota="B"></div>
+        <div class="nota white" style="left: 0;" data-nota="0" data-nom="C"></div>
+        <div class="nota black" style="left: 40px;" data-nota="1" data-nom="Db"></div>
+        <div class="nota white" style="left: 55px;" data-nota="2" data-nom="D"></div>
+        <div class="nota black" style="left: 95px;" data-nota="3" data-nom="Eb"></div>
+        <div class="nota white" style="left: 110px;" data-nota="4" data-nom="E"></div>
+        <div class="nota white" style="left: 165px;" data-nota="5" data-nom="F"></div>
+        <div class="nota black" style="left: 205px;" data-nota="6" data-nom="F#"></div>
+        <div class="nota white" style="left: 220px;" data-nota="7" data-nom="G"></div>
+        <div class="nota black" style="left: 260px;" data-nota="8" data-nom="Ab"></div>
+        <div class="nota white" style="left: 275px;" data-nota="9" data-nom="A"></div>
+        <div class="nota black" style="left: 315px;" data-nota="10" data-nom="Bb"></div>
+        <div class="nota white" style="left: 330px;" data-nota="11" data-nom="B"></div>
     </div>
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
-        const dades = ['0', '0', '0', '0', '0', '0', '0', '0', '0',
-                           '9m', '9m', '9m', '9m', '9m', '9m', '9m',
-                           '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
-                           '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
-                           '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
+        
         let to = ""; // Variable global per guardar el to seleccionat
 
         // Afegir esdeveniments a les notes del teclat
@@ -132,8 +96,8 @@
                 nota.style.backgroundColor = ''; // Restableix el color
             });
             nota.addEventListener('click', () => {
-                to = nota.getAttribute('data-nota'); // Guarda el to seleccionat
-                document.getElementById('to').innerHTML = `To: ${to}`; // Actualitza el div amb el to
+                to = parseInt(nota.getAttribute('data-nota')); // Guarda el to seleccionat com a número
+                document.getElementById('to').innerHTML = `To: ${nota.getAttribute('data-nom')}`; // Actualitza el div amb el nom del to
             });
         });
 
@@ -167,6 +131,11 @@
 
         document.getElementById('generar').addEventListener('click', () => {
             const durada = parseInt(document.getElementById('durada').value);
+            const dades = ['0', '0', '0', '0', '0', '0', '0', '0', '0',
+                           '9m', '9m', '9m', '9m', '9m', '9m', '9m',
+                           '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
+                           '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
+                           '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
             const resultat = generarProgressio(durada, dades, to);
             const progressioText = resultat.length ? `${resultat.join(' ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
