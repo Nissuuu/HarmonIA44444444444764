@@ -4,11 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <title>Generador de Progressió</title>
-
-    <!-- Estils per canviar el color de fons del div -->
     <style>
         #resultat {
             background-color: lightblue;
@@ -25,7 +21,6 @@
 <body>
     <h1>Generador de Progressió d'Acords</h1>
 
-    <!-- Desplegable per seleccionar la durada -->
     <label for="durada">Selecciona la durada de la progressió:</label>
     <select id="durada" name="durada">
         <option value="1">1</option>
@@ -38,54 +33,44 @@
         <option value="8">8</option>
     </select>
 
-    <!-- Botó per generar la progressió -->
     <button id="generar">Generar Progressió</button>
 
-    <!-- Espai per mostrar la progressió generada -->
     <div id="resultat">Aquí es mostrarà la progressió</div>
 
-    <py-script>
-        import random
-        from pyscript import display
+    <script>
+        const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
+        const dades = ['0', '2m', '4', '5', '7m', '9'];
 
-        # Acords disponibles
-        acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
+        function generarProgressio(durada, dades, to) {
+            let progressio = [];
+            let caracters = 0;
+            while (caracters < durada) {
+                const acordAleatori = dades[Math.floor(Math.random() * dades.length)];
+                const acordsSeparats = acordAleatori.split(" ");
+                if (caracters + acordsSeparats.length <= durada) {
+                    progressio.push(...acordsSeparats);
+                    caracters += acordsSeparats.length;
+                }
+            }
 
-        # Simulació de les dades del fitxer
-        dades = ['0', '2m', '4', '5', '7m', '9']
+            return progressio.map(i => {
+                if (i.includes('m')) {
+                    const nota = (parseInt(i) + to) % 12;
+                    return acords[nota] + 'm';
+                } else {
+                    const nota = (parseInt(i) + to) % 12;
+                    return acords[nota];
+                }
+            });
+        }
 
-        # Funció per generar la progressió
-        def generar_progressio(durada, dades, to):
-            progressió = []
-            progressió_traduïda = []
-            caràcters = 0
-            while caràcters < durada:
-                acord_aleatori = random.choice(dades)
-                acords_separats = acord_aleatori.split()
-                if caràcters + len(acords_separats) <= durada:
-                    progressió.extend(list(acords_separats))
-                    caràcters += len(acords_separats)
-            for i in progressió:
-                if 'm' in i:
-                    nota = (int(i[:-1]) + to) % 12
-                    nota_traduïda = acords[nota]
-                    progressió_traduïda.append(nota_traduïda + 'm')
-                else:
-                    i = int(i)
-                    nota_traduïda = acords[(i + to) % 12]
-                    progressió_traduïda.append(nota_traduïda)
-            return progressió_traduïda
-
-        # Funció per mostrar la progressió generada
-        def mostrar_progressio(event):
-            durada = int(document.querySelector("#durada").value)  # Obtenim el valor seleccionat del desplegable
-            resultat = generar_progressio(durada, dades, 0)  # To fixat a 0
-            progressio_text = f"Progressió: {', '.join(resultat)}"
-            display(progressio_text, target="resultat")  # Utilitzem pyscript.write per escriure el resultat
-
-        # Enllaçar el botó amb la funció de mostrar la progressió
-        document.querySelector("#generar").addEventListener("click", mostrar_progressio)
-    </py-script>
+        document.getElementById('generar').addEventListener('click', () => {
+            const durada = parseInt(document.getElementById('durada').value);
+            const resultat = generarProgressio(durada, dades, 0); // To fixat a 0
+            const progressioText = `Progressió: ${resultat.join(', ')}`;
+            document.getElementById('resultat').innerHTML = progressioText; // Mostrem la progressió
+        });
+    </script>
 </body>
 
 </html>
