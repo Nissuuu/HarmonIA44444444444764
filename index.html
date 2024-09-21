@@ -51,7 +51,7 @@
     
     <button id="generar">Generar Progressió</button>
 
-    <div id="resultat">Aquí es mostrarà la progressió</div>
+    <div id="resultat"></div>
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
@@ -80,23 +80,21 @@
                 const progressioAleatoria = dades[Math.floor(Math.random() * dades.length)];
                 const acordsSeparats = progressioAleatoria.split(" "); // Separar els acords
 
-                // Afegir els acords a la progressió, assegurant-nos que no es superi la durada
+                // Afegir els acords a la progressió
                 for (let acord of acordsSeparats) {
-                    if (progressio.length < durada) {
+                    // Verificar si l'acord és un número o inclou 'm'
+                    if (/^\d+m?$/.test(acord)) { // Comprovar si és un número o un acord menor
                         progressio.push(acord);
                     }
                 }
             }
 
             // Convertir la progressió
-            return progressio.map(i => {
+            return progressio.slice(0, durada).map(i => {
                 const acordNum = parseInt(i);
-                if (isNaN(acordNum)) {
-                    return i.includes('m') ? i : undefined; // Retornar undefined si no és un número
-                }
                 const nota = (acordNum + to) % 12;
                 return i.includes('m') ? acords[nota] + 'm' : acords[nota];
-            }).filter(Boolean); // Filtrar elements undefined
+            });
         }
 
         document.getElementById('generar').addEventListener('click', () => {
