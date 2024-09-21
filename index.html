@@ -42,7 +42,7 @@
     <button id="generar">Generar Progressió</button>
 
     <!-- Espai per mostrar la progressió generada -->
-    <div id="resultat"></div>
+    <div id="resultat">Aquí es mostrarà la progressió</div>
 
     <py-script>
         import random
@@ -76,14 +76,14 @@
             return progressió_traduïda
 
         # Funció per mostrar la progressió generada
-        def mostrar_progressio():
-            durada = int(Element("durada").value)  # Obtenim el valor seleccionat del desplegable
+        def mostrar_progressio(event):
+            durada = int(document.querySelector("#durada").value)  # Obtenim el valor seleccionat del desplegable
             resultat = generar_progressio(durada, dades, 0)  # To fixat a 0
             progressio_text = f"Progressió: {', '.join(resultat)}"
-            Element("resultat").element.innerHTML = progressio_text  # Mostrem la progressió
+            document.querySelector("#resultat").innerHTML = progressio_text  # Mostrem la progressió
 
         # Enllaçar el botó amb la funció de mostrar la progressió
-        Element("generar").element.onclick = mostrar_progressio
+        document.querySelector("#generar").addEventListener("click", mostrar_progressio)
     </py-script>
 </body>
 
