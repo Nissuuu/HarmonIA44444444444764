@@ -59,31 +59,47 @@
             left: 40px; 
             z-index: 1; 
         }
-        button {
-            z-index: 10;
-            width: 300px;
-            height: 80px;
-            background: linear-gradient(to left top, #dfdfdf 25%, #a8a8a8 25%);
+        .animated-button {
+            --color: #fff;
+            --background: #2B3044;
+            --hover-back: #6f6f6f;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
             border: none;
-            color: #343434;
-            font-size: 30px;
-            letter-spacing: 1px;
-            font-family: 'Impact';
-            font-weight: 400;
-            outline: none;
             cursor: pointer;
-            padding: 0;
-            overflow: hidden;
-            transition: all .5s;
-            box-shadow: 0px 1px 2px rgba(0,0,0,.2);
-        }
-        button span {
             position: absolute;
-            display: block;
+            top: 750px;
+            left: 350px;
+            overflow: hidden;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: var(--color);
+            background: var(--background);
         }
-        button:hover {
-            transform: rotate(-3deg) scale(1.1);
-            box-shadow: 0px 2px 4px rgba(0,0,0,.3);
+        
+        .animated-button:hover {
+            background: var(--hover-back);
+            transform: scale(1.05);
+        }
+        
+        .animated-button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s;
+            z-index: 0;
+        }
+        
+        .animated-button:hover:before {
+            transform: translate(-50%, -50%) scale(1);
         }
         .inputs {
             color: #000000;
