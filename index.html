@@ -55,19 +55,11 @@
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
-        let dades = [];
-
-        // Funció per carregar dades des del fitxer estadística.txt
-        async function carregarDades() {
-            try {
-                const resposta = await fetch('estadística.txt');
-                const text = await resposta.text();
-                dades = text.split(',').map(item => item.trim()).filter(item => item); // Netejar i filtrar
-                console.log("Dades carregades:", dades); // Mostra les dades carregades a la consola
-            } catch (error) {
-                console.error("Error carregant les dades:", error);
-            }
-        }
+        let dades = ['0', '0', '0', '0', '0', '0', '0', '0', '0',
+            '9m', '9m', '9m', '9m', '9m', '9m', '9m',
+            '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
+            '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
+            '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
 
         function generarProgressio(durada, dades, to) {
             let progressio = [];
@@ -82,8 +74,6 @@
 
                 // Afegir els acords a la progressió
                 for (let acord of acordsSeparats) {
-                    // Verificar si l'acord és un número o inclou 'm'
-                    if (/^\d+m?$/.test(acord)) { // Comprovar si és un número o un acord menor
                         progressio.push(acord);
                     }
                 }
