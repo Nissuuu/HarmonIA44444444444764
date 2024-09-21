@@ -15,6 +15,33 @@
             color: #333;
             min-height: 50px;
         }
+
+        #teclat {
+            position: relative;
+            width: 800px;
+            height: 250px;
+            margin: 0 auto;
+            background-color: #eee;
+        }
+        .nota {
+            position: absolute;
+            border: 1px solid #000;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .nota.white {
+            background-color: white;
+            width: 55px;
+            height: 247px;
+        }
+        .nota.black {
+            background-color: black;
+            width: 31px;
+            height: 142px;
+            left: 40px; 
+            z-index: 1; 
+        }
     </style>
 </head>
 
@@ -33,25 +60,26 @@
         <option value="8">8</option>
     </select>
 
-    <label for="to">Selecciona el to de la progressió:</label>
-    <select id="to" name="to">
-        <option value="0">C</option>
-        <option value="1">Db</option>
-        <option value="2">D</option>
-        <option value="3">Eb</option>
-        <option value="4">E</option>
-        <option value="5">F</option>
-        <option value="6">Gb</option>
-        <option value="7">G</option>
-        <option value="8">Ab</option>
-        <option value="9">A</option>
-        <option value="10">Bb</option>
-        <option value="11">B</option>
-    </select>
+    <div id="to">Aquí va el to</div>
     
     <button id="generar">Generar Progressió</button>
 
     <div id="resultat">Aquí es mostrarà la progressió</div>
+
+    <div id="teclat">
+        <div class="nota white" style="left: 0;" data-nota="C"></div>
+        <div class="nota black" style="left: 40px;" data-nota="Db"></div>
+        <div class="nota white" style="left: 55px;" data-nota="D"></div>
+        <div class="nota black" style="left: 95px;" data-nota="Eb"></div>
+        <div class="nota white" style="left: 110px;" data-nota="E"></div>
+        <div class="nota white" style="left: 165px;" data-nota="F"></div>
+        <div class="nota black" style="left: 205px;" data-nota="F#"></div>
+        <div class="nota white" style="left: 220px;" data-nota="G"></div>
+        <div class="nota black" style="left: 260px;" data-nota="Ab"></div>
+        <div class="nota white" style="left: 275px;" data-nota="A"></div>
+        <div class="nota black" style="left: 315px;" data-nota="Bb"></div>
+        <div class="nota white" style="left: 330px;" data-nota="B"></div>
+    </div>
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
@@ -62,6 +90,18 @@
                      '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
                      '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
                      '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
+
+        document.querySelectorAll('.nota').forEach(nota => {
+            nota.addEventListener('mouseenter', () => {
+                nota.style.backgroundColor = 'lightgray'; // Efecte hover
+            });
+            nota.addEventListener('mouseleave', () => {
+                nota.style.backgroundColor = ''; // Restableix el color
+            });
+            nota.addEventListener('click', () => {
+                const to = nota.getAttribute('data-nota');
+            });
+        });
 
         function generarProgressio(durada, dades, to) {
             let progressio = [];
@@ -93,10 +133,10 @@
 
         document.getElementById('generar').addEventListener('click', () => {
             const durada = parseInt(document.getElementById('durada').value);
-            const to = parseInt(document.getElementById('to').value);
             const resultat = generarProgressio(durada, dades, to);
             const progressioText = resultat.length ? `${resultat.join(' ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
+            document.getElementById('to').innerHTML = to;
         });
     </script>
 </body>
