@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,13 +83,9 @@
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
         
-        // Les dades ara són una variable local
-        let dades = ['0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '9m', '9m', '9m', '9m', '9m', '9m', '9m',
-                     '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
-                     '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
-                     '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
+        let to = ""; // Variable global per guardar el to seleccionat
 
+        // Afegir esdeveniments a les notes del teclat
         document.querySelectorAll('.nota').forEach(nota => {
             nota.addEventListener('mouseenter', () => {
                 nota.style.backgroundColor = 'lightgray'; // Efecte hover
@@ -99,7 +94,8 @@
                 nota.style.backgroundColor = ''; // Restableix el color
             });
             nota.addEventListener('click', () => {
-                const to = nota.getAttribute('data-nota');
+                to = nota.getAttribute('data-nota'); // Guarda el to seleccionat
+                document.getElementById('to').innerHTML = `To seleccionat: ${to}`; // Actualitza el div amb el to
             });
         });
 
@@ -136,7 +132,6 @@
             const resultat = generarProgressio(durada, dades, to);
             const progressioText = resultat.length ? `${resultat.join(' ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
-            document.getElementById('to').innerHTML = to;
         });
     </script>
 </body>
