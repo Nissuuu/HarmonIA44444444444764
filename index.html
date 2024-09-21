@@ -62,7 +62,8 @@
             try {
                 const resposta = await fetch('estadística.txt');
                 const text = await resposta.text();
-                dades = text.split(','); // Suponem que els acords estan separats per comes
+                dades = text.split(',').map(item => item.trim()); // Eliminar espais innecessaris
+                console.log("Dades carregades:", dades); // Mostra les dades carregades a la consola
             } catch (error) {
                 console.error("Error carregant les dades:", error);
             }
@@ -70,24 +71,19 @@
 
         function generarProgressio(durada, dades, to) {
             let progressio = [];
-            let caracters = 0;
-            while (caracters < durada) {
+            while (progressio.length < durada) {
+                if (dades.length === 0) {
+                    console.error("No hi ha dades disponibles per generar la progressió.");
+                    return [];
+                }
                 const acordAleatori = dades[Math.floor(Math.random() * dades.length)];
                 const acordsSeparats = acordAleatori.split(" ");
-                if (caracters + acordsSeparats.length <= durada) {
-                    progressio.push(...acordsSeparats);
-                    caracters += acordsSeparats.length;
-                }
+                progressio.push(...acordsSeparats.slice(0, durada - progressio.length)); // Afegir només el que cal
             }
 
             return progressio.map(i => {
-                if (i.includes('m')) {
-                    const nota = (parseInt(i) + to) % 12;
-                    return acords[nota] + 'm';
-                } else {
-                    const nota = (parseInt(i) + to) % 12;
-                    return acords[nota];
-                }
+                const nota = (parseInt(i) + to) % 12;
+                return i.includes('m') ? acords[nota] + 'm' : acords[nota];
             });
         }
 
@@ -95,7 +91,7 @@
             const durada = parseInt(document.getElementById('durada').value);
             const to = parseInt(document.getElementById('to').value);
             const resultat = generarProgressio(durada, dades, to);
-            const progressioText = `Progressió: ${resultat.join(', ')}`;
+            const progressioText = resultat.length ? `Progressió: ${resultat.join(', ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
         });
 
