@@ -21,7 +21,7 @@
 <body>
     <h1>Generador de Progressió d'Acords</h1>
 
-    <label for="durada">Selecciona la durada de la progressió:</label>
+    <label for="durada">Selecciona quants acords té la progressió:</label>
     <select id="durada" name="durada">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -33,13 +33,40 @@
         <option value="8">8</option>
     </select>
 
+    <label for="to">Selecciona el to de la progressió:</label>
+    <select id="to" name="to">
+        <option value="C">0</option>
+        <option value="Db">1</option>
+        <option value="D">2</option>
+        <option value="Eb">3</option>
+        <option value="E">4</option>
+        <option value="F">5</option>
+        <option value="Gb">6</option>
+        <option value="G">7</option>
+        <option value="Ab">8</option>
+        <option value="A">9</option>
+        <option value="Bb">10</option>
+        <option value="B">11</option>
+    </select>
+    
     <button id="generar">Generar Progressió</button>
 
     <div id="resultat">Aquí es mostrarà la progressió</div>
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
-        const dades = ['0', '2m', '4', '5', '7m', '9'];
+        let dades = [];
+
+        // Funció per carregar dades des del fitxer estadística.txt
+        async function carregarDades() {
+            try {
+                const resposta = await fetch('estadística.txt');
+                const text = await resposta.text();
+                dades = text.split(','); // Suponem que els acords estan separats per comes
+            } catch (error) {
+                console.error("Error carregant les dades:", error);
+            }
+        }
 
         function generarProgressio(durada, dades, to) {
             let progressio = [];
@@ -66,10 +93,14 @@
 
         document.getElementById('generar').addEventListener('click', () => {
             const durada = parseInt(document.getElementById('durada').value);
-            const resultat = generarProgressio(durada, dades, 0); // To fixat a 0
+            const to = parseInt(document.getElementById('to').value);
+            const resultat = generarProgressio(durada, dades, to);
             const progressioText = `Progressió: ${resultat.join(', ')}`;
-            document.getElementById('resultat').innerHTML = progressioText; // Mostrem la progressió
+            document.getElementById('resultat').innerHTML = progressioText;
         });
+
+        // Carregar les dades quan es carregui la pàgina
+        carregarDades();
     </script>
 </body>
 
