@@ -8,15 +8,17 @@
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     <title>Generador de Progressió</title>
 
+    <!-- Estils per canviar el color de fons del div -->
     <style>
-    #generar {
-        background-color: lightblue; 
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 20px;
-        font-weight: bold;
-        color: #333; 
-    }
+        #resultat {
+            background-color: lightblue; /* Canvia el color de fons */
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333; /* Color del text */
+            min-height: 50px; /* Altura mínima per assegurar visibilitat */
+        }
     </style>
 </head>
 
@@ -40,13 +42,19 @@
     <button id="generar">Generar Progressió</button>
 
     <!-- Espai per mostrar la progressió generada -->
-    <div id="resultat"></div>
+    <div id="resultat">Aquí es mostrarà la progressió</div>
 
     <py-script>
         import random
+        from pyscript import Element  # Importar Element per manipular el DOM
+
+        # Acords disponibles
         acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"}
+
+        # Simulació de les dades del fitxer
         dades = ['0', '2m', '4', '5', '7m', '9']
 
+        # Funció per generar la progressió
         def generar_progressio(durada, dades, to):
             progressió = []
             progressió_traduïda = []
@@ -68,11 +76,14 @@
                     progressió_traduïda.append(nota_traduïda)
             return progressió_traduïda
 
+        # Funció per mostrar la progressió generada
         def mostrar_progressio():
-            durada = int(Element("durada").value) 
-            resultat = generar_progressio(durada, dades, 0) 
-            Element("resultat").write(f"Progressió: {', '.join(resultat)}")  
+            durada = int(Element("durada").value)  # Obtenim el valor seleccionat del desplegable
+            resultat = generar_progressio(durada, dades, 0)  # To fixat a 0
+            progressio_text = f"Progressió: {', '.join(resultat)}"
+            Element("resultat").element.innerHTML = progressio_text  # Mostrem la progressió
 
+        # Enllaçar el botó amb la funció de mostrar la progressió
         Element("generar").element.onclick = mostrar_progressio
     </py-script>
 </body>
