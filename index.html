@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HarmonIA</title>
+    <title>Generador de Progressió</title>
     <style>
         #resultat {
             background-color: lightblue;
@@ -51,7 +51,7 @@
     
     <button id="generar">Generar Progressió</button>
 
-    <div id="resultat">aquí</div>
+    <div id="resultat">Aquí es mostrarà la progressió</div>
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
@@ -66,14 +66,24 @@
         function generarProgressio(durada, dades, to) {
             let progressio = [];
             while (progressio.length < durada) {
+                if (dades.length === 0) {
+                    console.error("No hi ha dades disponibles per generar la progressió.");
+                    return [];
+                }
+                // Seleccionar una progressió aleatòria
                 const progressioAleatoria = dades[Math.floor(Math.random() * dades.length)];
-                const acordsSeparats = progressioAleatoria.split(" ");
+                const acordsSeparats = progressioAleatoria.split(" "); // Separar els acords
+
+                // Afegir els acords a la progressió
                 for (let acord of acordsSeparats) {
+                    // Verificar si l'acord és un número o inclou 'm'
+                    if (/^\d+m?$/.test(acord)) { // Comprovar si és un número o un acord menor
                         progressio.push(acord);
                     }
                 }
             }
 
+            // Convertir la progressió
             return progressio.slice(0, durada).map(i => {
                 const acordNum = parseInt(i);
                 const nota = (acordNum + to) % 12;
@@ -85,7 +95,7 @@
             const durada = parseInt(document.getElementById('durada').value);
             const to = parseInt(document.getElementById('to').value);
             const resultat = generarProgressio(durada, dades, to);
-            const progressioText = resultat.length ? `Progressió: ${resultat.join(' ')}` : "No es pot generar la progressió.";
+            const progressioText = resultat.length ? `Progressió: ${resultat.join(', ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
         });
     </script>
