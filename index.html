@@ -92,27 +92,26 @@
             letter-spacing: 1px;
             text-align: left;
         }
-        .text {
-    font-size: 130px;
-    fill: none;
-    font-weight: 150;
-    letter-spacing: 4px;
-    stroke-width: 4;
-    stroke-linejoin: round;
-    stroke: #FFFFFF; 
-}
+        .titol {
+            color: #fff;
+            font-size: 5em;
+            font-weight: bold;
+            font-family: Impact;
+            letter-spacing: 4px;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+            text-align: center;
+            margin-top: 20px; 
+        }
+        
+        .highlight {
+            font-size: 1.5em; 
+        }
 
     </style>
 </head>
 
 <body>
-    <svg viewBox="0 0 1320 300">
-      <!-- Symbol -->
-      <symbol id="s-text">
-        <text text-anchor="middle" x="50%" y="50%" dy=".25em">
-          HarmonIA
-        </text>
-      </symbol>
+    <div class="titol"><span class="highlight">H</span>armon<span class="highlight">IA</span></div>
     
       <use xlink:href="#s-text" class="text"></use>
       <use xlink:href="#s-text" class="text"></use>
