@@ -62,7 +62,7 @@
             try {
                 const resposta = await fetch('estadística.txt');
                 const text = await resposta.text();
-                dades = text.split(',').map(item => item.trim()); // Eliminar espais innecessaris
+                dades = text.split(',').map(item => item.trim()).filter(item => item); // Netejar i filtrar
                 console.log("Dades carregades:", dades); // Mostra les dades carregades a la consola
             } catch (error) {
                 console.error("Error carregant les dades:", error);
@@ -77,7 +77,7 @@
                     return [];
                 }
                 const acordAleatori = dades[Math.floor(Math.random() * dades.length)];
-                const acordsSeparats = acordAleatori.split(" ");
+                const acordsSeparats = acordAleatori.split(" ").filter(Boolean); // Filtrar elements buits
                 progressio.push(...acordsSeparats.slice(0, durada - progressio.length)); // Afegir només el que cal
             }
 
