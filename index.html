@@ -51,15 +51,17 @@
     
     <button id="generar">Generar Progressió</button>
 
-    <div id="resultat">abc</div>
+    <div id="resultat">Aquí es mostrarà la progressió</div>
 
     <script>
         const acords = {0: "C", 1: "Db", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "Ab", 9: "A", 10: "Bb", 11: "B"};
+        
+        // Les dades ara són una variable local
         let dades = ['0', '0', '0', '0', '0', '0', '0', '0', '0',
-            '9m', '9m', '9m', '9m', '9m', '9m', '9m',
-            '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
-            '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
-            '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
+                     '9m', '9m', '9m', '9m', '9m', '9m', '9m',
+                     '0 9m', '0 9m', '0 9m', '0 9m', '0 9m',
+                     '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7', '0 5 7',
+                     '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5', '0 7 9m 5'];
 
         function generarProgressio(durada, dades, to) {
             let progressio = [];
@@ -74,6 +76,8 @@
 
                 // Afegir els acords a la progressió
                 for (let acord of acordsSeparats) {
+                    // Verificar si l'acord és un número o inclou 'm'
+                    if (/^\d+m?$/.test(acord)) { // Comprovar si és un número o un acord menor
                         progressio.push(acord);
                     }
                 }
@@ -94,9 +98,6 @@
             const progressioText = resultat.length ? `Progressió: ${resultat.join(', ')}` : "No es pot generar la progressió.";
             document.getElementById('resultat').innerHTML = progressioText;
         });
-
-        // Carregar les dades quan es carregui la pàgina
-        carregarDades();
     </script>
 </body>
 
