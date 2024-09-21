@@ -76,10 +76,14 @@
                     console.error("No hi ha dades disponibles per generar la progressió.");
                     return [];
                 }
-                const acordAleatori = dades[Math.floor(Math.random() * dades.length)];
-                const acordsSeparats = acordAleatori.split(" ").filter(Boolean); // Filtrar elements buits
-                progressio.push(...acordsSeparats.slice(0, durada - progressio.length)); // Afegir només el que cal
+                // Seleccionar una progressió aleatòria
+                const progressioAleatoria = dades[Math.floor(Math.random() * dades.length)];
+                const acordsSeparats = progressioAleatoria.split(" "); // Separar els acords
+                progressio.push(...acordsSeparats); // Afegir els acords a la progressió
             }
+
+            // Tallar la progressió a la longitud desitjada
+            progressio = progressio.slice(0, durada);
 
             return progressio.map(i => {
                 const nota = (parseInt(i) + to) % 12;
